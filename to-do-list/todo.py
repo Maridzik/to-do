@@ -25,7 +25,6 @@ def get_file_names(folder_path):
         print(file_names[i])
 
 
-
 def create():
     b = slow_input("Введите название файла: ")
     content = ''
@@ -62,9 +61,11 @@ def read(file):
 def delete(file):
     os.remove(f"{directory}/{file}.txt")
 
+
 def change_directory(dir):
     global directory
     directory = dir
+
 
 def edit(file, line_to_edit, new_text):
     with open(f"{directory}/{file}.txt", "r", encoding="utf-8") as f:
