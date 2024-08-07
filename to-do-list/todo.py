@@ -2,7 +2,6 @@ import time
 import os
 
 
-
 directory = 'directory'
 
 
@@ -59,6 +58,9 @@ def read(file):
         for line in lines:
             slow_print(line, '')
 
+def delete(file):
+    os.remove(f"{directory}/{file}.txt")
+
 
 def main():
     while True:
@@ -80,6 +82,9 @@ def main():
 
         elif content == "/file_names":
             get_file_names(directory)
+        
+        elif content == "/delete":
+            delete(slow_input("Введите название файла: "))
 
         else:
             print("Неправильная команда")
