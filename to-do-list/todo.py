@@ -58,6 +58,7 @@ def read(file):
         for line in lines:
             slow_print(line, '')
 
+
 def delete(file):
     os.remove(f"{directory}/{file}.txt")
 
