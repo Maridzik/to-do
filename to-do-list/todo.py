@@ -5,7 +5,7 @@ import os
 directory = 'directory'
 
 
-def slow_print(text : str, end_value : str):
+def slow_print(text : str, end_value = ""):
     for char in text:
         print(char, end = end_value, flush=True)
         time.sleep(0.01)
@@ -49,7 +49,7 @@ def create():
 
 
 def help():
-    slow_print("/create - создать файл, \n/save - сохранить файл,\n/cansel - отменить сохранение файла,\n/read - прочитать файл,\n/file_names - названия всех сохранённых файлов,\n/exit - закрыть программу,\n/help - все команды\n", '')
+    slow_print("/create - создать файл, \n/save - сохранить файл,\n/cansel - отменить сохранение файла,\n/read - прочитать файл,\n/file_names - названия всех сохранённых файлов,\n/exit - закрыть программу,\n/help - все команды,\n/change_directory - изменить директорию,\n/edit - редактировать файл,\n/delete - удалить файл.\n", '')
 
 
 def read(file):
@@ -61,6 +61,19 @@ def read(file):
 
 def delete(file):
     os.remove(f"{directory}/{file}.txt")
+
+def change_directory(dir):
+    global directory
+    directory = dir
+
+def edit(file, line_to_edit, new_text):
+    with open(f"{directory}/{file}.txt", "r", encoding="utf-8") as f:
+        lines = f.readlines()
+    
+    lines[line_to_edit - 1] = new_text + "\n"
+
+    with open(f"{directory}/{file}.txt", "w", encoding="utf-8") as f:
+        f.writelines(lines) 
 
 
 def main():
@@ -87,8 +100,21 @@ def main():
         elif content == "/delete":
             delete(slow_input("Введите название файла: "))
 
+
+        elif content == "/change_directory":
+            change_directory(slow_input("Введите название директории: "))
+            slow_print(f"Новая директория: {directory}")
+        
+        elif content == "/edit":
+            f = slow_input("Введите файл: ")
+            read(f)
+            edit(f, int(slow_input("Номер строки: ")),slow_input("Новый текст: "))
+            read(f)
+
         else:
             print("Неправильная команда")
+
+
 
 
 if __name__ == "__main__":
