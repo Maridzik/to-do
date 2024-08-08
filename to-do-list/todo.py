@@ -4,7 +4,6 @@ import os
 
 with open("directory.txt", "r",  encoding="utf-8") as f:
     directory = f.read()
-print(directory)
 
 
 def slow_print(text : str, end_value = ""):
@@ -83,7 +82,15 @@ def edit(file, line_to_edit, new_text):
     lines[line_to_edit - 1] = new_text + "\n"
 
     with open(f"{directory}/{file}.txt", "w", encoding="utf-8") as f:
-        f.writelines(lines) 
+        f.writelines(lines)
+
+    content = input("Продолжить редактирование ? ")
+    if content.lower() == "да":
+        edit(file, int(slow_input("Номер строки: ")),slow_input("Новый текст: "))
+    elif content.lower() == "нет":
+        pass
+    else:
+        print("Неверная команда") 
 
 
 def main():
