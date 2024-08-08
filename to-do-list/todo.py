@@ -2,7 +2,9 @@ import time
 import os
 
 
-directory = 'directory'
+with open("directory.txt", "r",  encoding="utf-8") as f:
+    directory = f.read()
+print(directory)
 
 
 def slow_print(text : str, end_value = ""):
@@ -66,6 +68,13 @@ def change_directory(dir):
     global directory
     directory = dir
 
+    with open("directory.txt", "r", encoding="utf-8") as f:
+        content = f.read()
+
+    with open("directory.txt", "w", encoding="utf-8") as f:
+        content = dir
+        f.write(content)
+
 
 def edit(file, line_to_edit, new_text):
     with open(f"{directory}/{file}.txt", "r", encoding="utf-8") as f:
@@ -101,7 +110,6 @@ def main():
         elif content == "/delete":
             delete(slow_input("Введите название файла: "))
 
-
         elif content == "/change_directory":
             change_directory(slow_input("Введите название директории: "))
             slow_print(f"Новая директория: {directory}")
@@ -120,6 +128,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-        
-    
